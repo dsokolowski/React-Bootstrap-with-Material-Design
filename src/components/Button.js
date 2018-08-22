@@ -12,24 +12,23 @@ class Button extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  handleClick(e){
-    // Get Cursor Position
-    e.preventDefault();
-    let cursorPos = {
-      top: e.clientY,
-      left: e.clientX,
-      time: Date.now()
-    };
-    this.setState({ cursorPos: cursorPos });
+  handleClick = (e) => {
+    if (!this.props.disabled) {
+      // Waves - Get Cursor Position
+      let cursorPos = {
+        top: e.clientY,
+        left: e.clientX,
+        time: Date.now()
+      };
+      this.setState({ cursorPos: cursorPos });
+      e.stopPropagation();
+    }
   }
 
   onClick(e) {
     if (this.props.disabled) {
       e.preventDefault();
       return;
-    }
-    if (this.props.onClick) {
-      this.props.onClick(e);
     }
   }
 
@@ -80,8 +79,8 @@ class Button extends React.Component {
         className={classes}
         ref={innerRef}
         onClick={this.onClick}
-        onMouseDown={ this.handleClick.bind(this) }
-        onTouchStart={ this.handleClick.bind(this) }
+        onMouseDown={ this.handleClick }
+        onTouchStart={ this.handleClick }
         {...attributes}
       >
         {this.props.children}

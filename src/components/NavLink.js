@@ -24,10 +24,6 @@ class NavLink extends Component {
         time: Date.now()
       };
       this.setState({ cursorPos: cursorPos });
-      // do the passed in callback:
-      if (this.props.onClick) {
-      this.props.onClick(e);
-      }
       e.stopPropagation();
     }
   }
@@ -40,6 +36,7 @@ class NavLink extends Component {
       disabled,
       active,
       to,
+      activeClassName,
       ...attributes
     } = this.props;
 
@@ -53,7 +50,8 @@ class NavLink extends Component {
     return (
       <Link className={classes}
             onClick = { this.handleClick }
-            to={this.props.to}
+            to={to}
+            activeClassName = {activeClassName}
             {...attributes}
       >
         {children}
